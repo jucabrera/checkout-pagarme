@@ -1,0 +1,158 @@
+<?php $this->headTitle('Checkout'); ?>
+<h2>Carrinho</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">FANTASIA</th>
+			<th scope="col">FORNECEDOR</th>
+			<th scope="col">VALOR (unidade)</th>
+		</tr>
+	</thead>
+	<tbody>    
+  <?php foreach ($this->fantasias as $fantasia):?>
+   <tr>
+			<th scope="row"></th>
+			<td><?=$fantasia['description']?></td>
+			<td><?=$fantasia['provider']?></td>
+			<td><?=$fantasia['price']?></td>
+		</tr>
+  <?php endforeach;?>
+  </tbody>
+</table>
+
+<table class="table">
+
+	<tbody>
+		<tr>
+			<th scope="row">FANTASIAS</th>
+			<td scope="row"><?=$this->total?></td>
+		</tr>
+		<tr>
+			<th scope="row">FRETE</th>
+			<td scope="row"><?=$this->frete?></td>
+		</tr>
+		<tr>
+			<th scope="row">TOTAL + FRETE</th>
+			<td scope="row"><?=$this->totalComFrete?></td>
+		</tr>
+	</tbody>
+</table>
+<br>
+<h2>Preencha abaixo para finalizar a compra</h2>
+<form class="container" id="needs-validation" method='post'
+	action='<?=$this->url('compra')?>' novalidate>
+	<div class="row">
+		<div class="col-md-6 mb-2">
+			<label for="validationCustom02">Nome</label> <input type="text"
+				class="form-control" id="nome" placeholder="Nome"
+				value="Otto" name="nome" required>
+		</div>
+		<div class="col-md-6 mb-2">
+			<label for="validationCustom02">Email</label> <input type="email"
+				class="form-control" id="email" placeholder="jucarol17@gmail.com"
+				value="jucarol17@gmail.com" name="email" required>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-2 mb-5">
+			<label for="validationCustom03">DDD</label> <input type="text"
+				class="form-control" id="ddd" placeholder="11"
+				name="ddd" value="11" required>
+		</div>
+		<div class="col-md-3 mb-5">
+			<label for="validationCustom03">Telefone</label> <input type="text"
+				class="form-control" id="telefone" placeholder="999999999"
+				name="telefone" value="991501875" required>
+		</div>
+		<div class="col-md-3 mb-5">
+			<label for="validationCustom05">CPF</label> <input type="text"
+				class="form-control" id="cpf" placeholder="Nº"
+				name="cpf" value="35389924878" required>
+
+		</div>
+		<div class="col-md-3 mb-5">
+			<label for="validationCustom04">Data de Nascimento</label> <input
+				type="text" class="form-control" id="data_nascimento"
+				placeholder="Bairro" name="data_nascimento" value="27071988"
+				required>
+
+		</div>
+		<div class="col-md-1 mb-5">
+			<label for="validationCustom05">Sexo</label> <input type="text"
+				class="form-control" id="sexo" placeholder="sexo"
+				name="sexo" value="F" required>
+
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-5 mb-3">
+			<label for="validationCustom01">Cartão de crédito</label> <input
+				type="text" class="form-control" id="cartao_credito"
+				placeholder="Cartão de crédito" value="4242424242424242"
+				name="cartao_credito" required>
+		</div>
+		<div class="col-md-5 mb-3">
+			<label for="validationCustom02">Nome que consta no cartão</label> <input
+				type="text" class="form-control" id="nome_cartao"
+				placeholder="Nome no cartão" value="Otto" name="nome_cartao"
+				required>
+		</div>
+		<div class="col-md-2 mb-3">
+			<label for="validationCustom02">Válido até</label> <input type="text"
+				class="form-control" id="validade_cartao" placeholder="1220"
+				value="1220" name="validade_cartao" required>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-6 mb-4">
+			<label for="validationCustom03">Rua</label> <input type="text"
+				class="form-control" id="rua"
+				placeholder="Rua da Fortuna" name="rua"
+				value="Rua Consul Orestes Correa" required>
+
+		</div>
+		<div class="col-md-1 mb-4">
+			<label for="validationCustom05">Nº</label> <input type="text"
+				class="form-control" id="numero_endereco" placeholder="Nº"
+				name="numero_endereco" value="77" required>
+
+		</div>
+		<div class="col-md-3 mb-4">
+			<label for="validationCustom04">Bairro</label> <input type="text"
+				class="form-control" id="bairro" placeholder="Bairro"
+				name="bairro" value="Macedo" required>
+
+		</div>
+		<div class="col-md-2 mb-4">
+			<label for="validationCustom05">CEP</label> <input type="text"
+				class="form-control" id="cep" placeholder="CEP"
+				name="cep" value="07197070" required>
+
+		</div>
+	</div>
+	<br> <input type="hidden" value='<?=$this->code?>'
+		name="code">
+	<button class="btn btn-primary" type="submit">Finalizar compra</button>
+</form>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+
+  window.addEventListener('load', function() {
+    var form = document.getElementById('needs-validation');
+    form.addEventListener('submit', function(event) {
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  }, false);
+})();
+</script>

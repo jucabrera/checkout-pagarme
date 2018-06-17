@@ -1,0 +1,14 @@
+.idea
+composer.phar
+clover.xml
+coveralls-upload.json
+phpunit.xml
+vendor/
+bin
+.idea
+.project
+.settings
+.buildpath
+deployment.properties
+deployment.xml
+config/autoload/pagarme.local.php
