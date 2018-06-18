@@ -1,6 +1,7 @@
 <?php
 namespace App\Model;
 
+use App\Exception\AppException;
 use PagarMe\Sdk\PagarMe;
 use Zend\Math\Rand;
 use Zend\Session\Container;
@@ -20,9 +21,14 @@ class CheckoutModel
 
     public function createCard($data)
     {
-        $cartao = $data['cartao_credito'];
-        $nomeCartao = $data['nome_cartao'];
-        $validadeCartao = $data['validade_cartao'];
+        $cartao = $data['cartao_credito']??null;
+        $nomeCartao = $data['nome_cartao']??null;
+        $validadeCartao = $data['validade_cartao']??null;
+
+        if(!$cartao or !$nomeCartao or !$validadeCartao){
+            throw new AppException('Dados do cartão são campos obrigatórios.');
+        }
+
         $card = $this->pagarMe->card()->create($cartao, $nomeCartao, $validadeCartao);
         return $card;
     }
@@ -30,10 +36,14 @@ class CheckoutModel
     public function createAddress($data)
     {
         $pagarMe = $this->pagarMe;
-        $rua = $data['rua'];
-        $numero_endereco = $data['numero_endereco'];
-        $bairro = $data['bairro'];
-        $cep = $_POST['cep'];
+        $rua = $data['rua']??null;
+        $numero_endereco = $data['numero_endereco']??null;
+        $bairro = $data['bairro']??null;
+        $cep = $_POST['cep']??null;
+
+        if(!$rua or !$numero_endereco or !$bairro or !$cep){
+            throw new AppException('Endereço é um campo obrigatório.');
+        }
         
         $address = new \PagarMe\Sdk\Customer\Address([
             'street' => $rua,
@@ -47,8 +57,12 @@ class CheckoutModel
     public function createPhone($data)
     {
         $pagarMe = $this->pagarMe;
-        $ddd = $data['ddd'];
-        $telefone = $data['telefone'];
+        $ddd = $data['ddd']??null;
+        $telefone = $data['telefone']??null;
+
+        if(!$ddd or !$telefone ){
+            throw new AppException('Telefone é um campo obrigatório');
+        }
         
         $phone = new \PagarMe\Sdk\Customer\Phone([
             'ddd' => $ddd,
@@ -62,12 +76,16 @@ class CheckoutModel
     {
         $address = $this->createAddress($data);
         $phone = $this->createPhone($data);
-        $nome = $data['nome'];
-        $email = $data['email'];
-        $cpf = $data['cpf'];
-        $dataNascimento = $data['data_nascimento'];
-        $sexo = $data['sexo'];
-        
+        $nome = $data['nome']??null;
+        $email = $data['email']??null;
+        $cpf = $data['cpf']??null;
+        $dataNascimento = $data['data_nascimento']??null;
+        $sexo = $data['sexo']??null;
+
+        if(!$nome or !$email or !$cpf or !$dataNascimento or !$sexo ){
+            throw new AppException('Dados pessoais são obrigatórios.');
+        }
+
         $customer = $this->pagarMe->customer()->create($nome, $email, $cpf, $address, $phone, $dataNascimento, $sexo);
         return $customer;
     }
@@ -79,7 +97,6 @@ class CheckoutModel
             $cart = $this->getItems($code);
             $total = (float)$cart['totalComFrete'] * 100;
             $amount = $total;  
-//            $amount = 1;
             $card = $this->createCard($data);
             $customer = $this->createCustomer($data);
             $transaction = $this->pagarMe->transaction()->creditCardTransaction($amount, $card, $customer, 1, true, 'http://requestb.in/pkt7pgpk', [
@@ -87,6 +104,7 @@ class CheckoutModel
             ]);
 
             return $transaction->getId();
+            $this->clearItems($code);
         } catch (\Exception $e) {
             error_log($e->getMessage() . "\n" . $e->getTraceAsString());
             throw $e;
@@ -104,7 +122,6 @@ class CheckoutModel
 
     public function saveItems($data, $code)
     {
-
         $data['code'] = $code;
         $this->container->$code = $data;
 
@@ -116,5 +133,12 @@ class CheckoutModel
             throw new \Exception('Empty cart');
         }
         return $this->container->$code;
+    }
+
+    public function clearItems($code)
+    {
+        if (! isset($this->container->$code)) {
+            unset($this->container->$code);
+        }
     }
 }
