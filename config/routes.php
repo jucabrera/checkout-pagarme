@@ -28,7 +28,8 @@
 
 /** @var \Zend\Expressive\Application $app */
 
-$app->get('/', App\Action\HomePageAction::class, 'home');
+$app->get('/', App\Action\CheckoutAction::class, 'home');
 $app->get('/checkout', App\Action\CheckoutAction::class, 'checkout');
 $app->route('/compra', App\Action\CompraAction::class,  ['GET', 'POST'], 'compra');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
+$app->route('/transaction', App\Action\ReturnTransactionAction::class,  ['GET', 'POST'], 'return.transaction');

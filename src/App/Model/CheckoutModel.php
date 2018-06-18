@@ -99,7 +99,7 @@ class CheckoutModel
             $amount = $total;  
             $card = $this->createCard($data);
             $customer = $this->createCustomer($data);
-            $transaction = $this->pagarMe->transaction()->creditCardTransaction($amount, $card, $customer, 1, true, 'http://requestb.in/pkt7pgpk', [
+            $transaction = $this->pagarMe->transaction()->creditCardTransaction($amount, $card, $customer, 1, true, 'http://localhost:8080/transaction', [
                 'idProduto' => $code
             ]);
 

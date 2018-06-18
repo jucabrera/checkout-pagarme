@@ -35,10 +35,10 @@ class ConfigProvider
         return [
             'invokables' => [
                 Action\PingAction::class => Action\PingAction::class,
+                Action\ReturnTransactionAction::class => Action\ReturnTransactionAction::class,
                 Model\FantasiasModel::class => Model\FantasiasModel::class
             ],
             'factories' => [
-                Action\HomePageAction::class => Action\HomePageFactory::class,
                 Action\CheckoutAction::class => Action\CheckoutFactory::class,
                 Action\CompraAction::class => Action\CompraFactory::class,
                 Model\CheckoutModel::class => Model\CheckoutModelFactory::class

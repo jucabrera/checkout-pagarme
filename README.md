@@ -27,6 +27,6 @@ Remover .dist do novo arquivo
 Substituir PAGARME_API_KEY pela sua chave de API 
 
 
-Feito isso pode acessar http://localhost:8080
+Feito isso pode acessar http://localhost:8080/checkout
 
 
