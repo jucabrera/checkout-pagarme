@@ -40,11 +40,10 @@
 </table>
 <br>
 <h2>Preencha abaixo para finalizar a compra</h2>
-<form class="container" id="needs-validation" method='post'
-	action='<?=$this->url('compra')?>' novalidate>
+<form class="container" id="needs-validation" method='post' action='<?=$this->url('compra')?>' novalidate>
 	<div class="row">
 		<div class="col-md-6 mb-2">
-			<label for="validationCustom02">Nome</label> <input type="text"
+			<label for="validationCustom01">Nome</label> <input type="text"
 				class="form-control" id="nome" placeholder="Nome"
 				 name="nome" required>
 		</div>
@@ -62,7 +61,7 @@
 				name="ddd" required>
 		</div>
 		<div class="col-md-3 mb-5">
-			<label for="validationCustom03">Telefone</label> <input type="text"
+			<label for="validationCustom04">Telefone</label> <input type="text"
 				class="form-control" id="telefone" placeholder="999999999"
 				name="telefone" required>
 		</div>
@@ -73,14 +72,14 @@
 
 		</div>
 		<div class="col-md-3 mb-5">
-			<label for="validationCustom04">Data de Nascimento</label> <input
+			<label for="validationCustom06">Data de Nascimento</label> <input
 				type="text" class="form-control" id="data_nascimento"
-				placeholder="Bairro" name="data_nascimento"
+				placeholder="27/07/1988" name="data_nascimento"
 				required>
 
 		</div>
 		<div class="col-md-1 mb-5">
-			<label for="validationCustom05">Sexo</label> <input type="text"
+			<label for="validationCustom07">Sexo</label> <input type="text"
 				class="form-control" id="sexo" placeholder="sexo"
 				name="sexo" required>
 
@@ -89,19 +88,19 @@
 	<br>
 	<div class="row">
 		<div class="col-md-5 mb-3">
-			<label for="validationCustom01">Cartão de crédito</label> <input
+			<label for="validationCustom08">Cartão de crédito</label> <input
 				type="text" class="form-control" id="cartao_credito"
 				placeholder="Cartão de crédito"
 				name="cartao_credito" required>
 		</div>
 		<div class="col-md-5 mb-3">
-			<label for="validationCustom02">Nome que consta no cartão</label> <input
+			<label for="validationCustom09">Nome que consta no cartão</label> <input
 				type="text" class="form-control" id="nome_cartao"
 				placeholder="Nome no cartão" name="nome_cartao"
 				required>
 		</div>
 		<div class="col-md-2 mb-3">
-			<label for="validationCustom02">Válido até</label> <input type="text"
+			<label for="validationCustom10">Válido até</label> <input type="text"
 				class="form-control" id="validade_cartao" placeholder="1220"
 				name="validade_cartao" required>
 		</div>
@@ -109,37 +108,39 @@
 	<br>
 	<div class="row">
 		<div class="col-md-6 mb-4">
-			<label for="validationCustom03">Rua</label> <input type="text"
+			<label for="validationCustom11">Rua</label> <input type="text"
 				class="form-control" id="rua"
 				placeholder="Rua da Fortuna" name="rua"
 				required>
 
 		</div>
 		<div class="col-md-1 mb-4">
-			<label for="validationCustom05">Nº</label> <input type="text"
+			<label for="validationCustom12">Nº</label> <input type="text"
 				class="form-control" id="numero_endereco" placeholder="Nº"
 				name="numero_endereco" required>
 
 		</div>
 		<div class="col-md-3 mb-4">
-			<label for="validationCustom04">Bairro</label> <input type="text"
+			<label for="validationCustom13">Bairro</label> <input type="text"
 				class="form-control" id="bairro" placeholder="Bairro"
 				name="bairro" required>
 
 		</div>
 		<div class="col-md-2 mb-4">
-			<label for="validationCustom05">CEP</label> <input type="text"
+			<label for="validationCustom14">CEP</label> <input type="text"
 				class="form-control" id="cep" placeholder="CEP"
 				name="cep" required>
 		</div>
 	</div>
-	<br> <input type="hidden" value='<?=$this->code?>'
+	<br>
+    <div class="" role="alert" id="bloco-erro"></div>
+    <input type="hidden" value='<?=$this->code?>'
 		name="code">
 	<button class="btn btn-primary" type="submit">Finalizar compra</button>
 </form>
 
+
 <script>
-Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
   'use strict';
 
@@ -147,7 +148,9 @@ Example starter JavaScript for disabling form submissions if there are invalid f
     var form = document.getElementById('needs-validation');
     form.addEventListener('submit', function(event) {
       if (form.checkValidity() === false) {
-          console.log("campos vazios");
+          var bloco = document.getElementById('bloco-erro');
+          bloco.innerHTML='Existem campos ainda não preenchidos';
+          bloco.className = 'alert alert-warning';
         event.preventDefault();
         event.stopPropagation();
       }
